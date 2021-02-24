@@ -1,1 +1,1 @@
-# jenkins-example
+# jenkins-and graphQL-example
