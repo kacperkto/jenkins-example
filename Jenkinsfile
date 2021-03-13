@@ -7,6 +7,18 @@ pipeline {
     }
 
     stages {
+            stage('SonarQube analysis') {
+                steps {
+                    withSonarQubeEnv('SonarQube') {
+                        sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.8.0.2131:sonar'
+                    }
+                }
+            }
+            stage("Quality gate") {
+                steps {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
          stage('Build') {
                 steps {
                    sh  "mvn clean compile"
